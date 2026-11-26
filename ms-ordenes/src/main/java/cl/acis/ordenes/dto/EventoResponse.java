@@ -1,0 +1,1 @@
+package cl.acis.ordenes.dto; import cl.acis.ordenes.model.*; import java.time.LocalDateTime; public record EventoResponse(Long id,TipoEvento tipo,EstadoOrden estadoAnterior,EstadoOrden estadoNuevo,Long actorId,String detalle,LocalDateTime fecha){}

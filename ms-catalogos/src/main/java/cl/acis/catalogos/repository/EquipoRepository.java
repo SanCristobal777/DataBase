@@ -1,0 +1,1 @@
+package cl.acis.catalogos.repository; import cl.acis.catalogos.model.Equipo; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface EquipoRepository extends JpaRepository<Equipo,Long>{List<Equipo> findByClienteId(Long id);}

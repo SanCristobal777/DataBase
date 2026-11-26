@@ -1,0 +1,1 @@
+package cl.acis.catalogos.repository; import cl.acis.catalogos.model.Cliente; import org.springframework.data.jpa.repository.JpaRepository; public interface ClienteRepository extends JpaRepository<Cliente,Long>{boolean existsByRutIgnoreCase(String rut);}

@@ -1,0 +1,1 @@
+package cl.acis.ordenes.repository; import cl.acis.ordenes.model.*; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface EventoOrdenRepository extends JpaRepository<EventoOrden,Long>{List<EventoOrden> findByOrdenOrderByFechaAsc(OrdenTrabajo o);}

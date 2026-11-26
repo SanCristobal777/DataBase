@@ -1,0 +1,1 @@
+package cl.acis.catalogos.dto; import jakarta.validation.constraints.*; public record ClienteRequest(@NotBlank String razonSocial,@NotBlank String rut,String contacto,@Email String correo,String telefono,String direccion,Integer slaHoras){}

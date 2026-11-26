@@ -1,0 +1,1 @@
+package cl.acis.catalogos.dto; import jakarta.validation.constraints.*; public record EquipoRequest(@NotNull Long clienteId,@NotBlank String tipo,@NotBlank String marca,@NotBlank String modelo,@NotBlank String serie,@NotBlank String ubicacion,boolean exterior){}

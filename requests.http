@@ -1,0 +1,71 @@
+@baseUrl = http://localhost:8081/api/usuarios
+@adminId = 1
+
+### Registro
+POST {{baseUrl}}/registro
+Content-Type: application/json
+{"correo":"nuevo@acis.cl","nombre":"Nuevo Cliente","password":"Acis2026","aceptoTerminos":true}
+
+### Login
+POST {{baseUrl}}/login
+Content-Type: application/json
+{"correo":"admin@acis.cl","password":"Acis2026"}
+
+### Listar usuarios
+GET {{baseUrl}}
+X-Usuario-Id: {{adminId}}
+
+### Obtener usuario
+GET {{baseUrl}}/1
+
+### Crear usuario (password temporal)
+POST {{baseUrl}}
+X-Usuario-Id: {{adminId}}
+Content-Type: application/json
+{"correo":"nuevo.tecnico@acis.cl","nombre":"Nuevo Técnico","rol":"TECNICO"}
+
+### Editar perfil
+PUT {{baseUrl}}/2
+X-Usuario-Id: {{adminId}}
+Content-Type: application/json
+{"correo":"jefe@acis.cl","nombre":"Jefatura ACIS"}
+
+### Cambiar rol
+PATCH {{baseUrl}}/2/rol
+X-Usuario-Id: {{adminId}}
+Content-Type: application/json
+{"rol":"TECNICO"}
+
+### Cambiar estado
+PATCH {{baseUrl}}/2/activo
+X-Usuario-Id: {{adminId}}
+Content-Type: application/json
+{"activo":true}
+
+### Recuperar contraseña
+POST {{baseUrl}}/recuperar
+Content-Type: application/json
+{"correo":"cliente@acis.cl"}
+
+### Restablecer contraseña
+POST {{baseUrl}}/restablecer
+Content-Type: application/json
+{"correo":"cliente@acis.cl","codigo":"123456","nuevaPassword":"Nueva2026"}
+
+### Cambiar password propio
+POST {{baseUrl}}/5/cambiar-password
+X-Usuario-Id: 5
+Content-Type: application/json
+{"passwordActual":"Acis2026","nuevaPassword":"Nueva2026"}
+
+### Cambio obligatorio
+POST {{baseUrl}}/5/cambiar-password-obligatorio
+X-Usuario-Id: 5
+Content-Type: application/json
+{"nuevaPassword":"Nueva2026"}
+
+### Aceptar términos
+POST {{baseUrl}}/5/aceptar-terminos
+X-Usuario-Id: 5
+Content-Type: application/json
+{"version":"1.0"}

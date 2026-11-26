@@ -1,0 +1,1 @@
+package cl.acis.catalogos.dto; import cl.acis.catalogos.model.TipoFoto; import java.time.LocalDateTime; public record FotoResponse(Long id,Long ordenId,String nombreArchivo,TipoFoto tipo,Double latitud,Double longitud,Long subidaPorId,LocalDateTime creadaEn){}

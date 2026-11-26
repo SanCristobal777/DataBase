@@ -1,0 +1,1 @@
+package cl.acis.catalogos.repository; import cl.acis.catalogos.model.FotoEvidencia; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface FotoRepository extends JpaRepository<FotoEvidencia,Long>{List<FotoEvidencia> findByOrdenId(Long id);}

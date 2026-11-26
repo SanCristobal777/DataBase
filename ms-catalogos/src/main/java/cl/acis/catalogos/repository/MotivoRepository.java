@@ -1,0 +1,1 @@
+package cl.acis.catalogos.repository; import cl.acis.catalogos.model.*; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface MotivoRepository extends JpaRepository<MotivoCatalogo,Long>{List<MotivoCatalogo> findByTipo(TipoMotivo tipo);}

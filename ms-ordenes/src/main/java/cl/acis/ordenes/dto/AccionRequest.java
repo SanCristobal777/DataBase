@@ -1,0 +1,1 @@
+package cl.acis.ordenes.dto; import cl.acis.ordenes.model.*; import jakarta.validation.constraints.*; import java.time.LocalDateTime; public record AccionRequest(@NotNull AccionOrden accion,String motivo,LocalDateTime fecha,Long tecnicoId,Double lat,Double lon,String diagnostico,String actividades,String materiales,Integer cantidadFotosEvidencia){}

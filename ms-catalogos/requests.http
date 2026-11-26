@@ -1,0 +1,39 @@
+@base = http://localhost:8083/api
+@actor = 1
+
+### Clientes
+GET {{base}}/clientes
+X-Usuario-Id: {{actor}}
+X-Usuario-Rol: JEFATURA
+
+### Crear cliente
+POST {{base}}/clientes
+X-Usuario-Id: {{actor}}
+X-Usuario-Rol: ADMINISTRADOR
+Content-Type: application/json
+{"razonSocial":"Cliente Demo SpA","rut":"76.543.210-3","correo":"demo@cliente.cl","direccion":"Santiago"}
+
+### Equipos
+GET {{base}}/equipos?clienteId=1
+X-Usuario-Id: {{actor}}
+X-Usuario-Rol: JEFATURA
+
+### Motivos
+GET {{base}}/motivos?tipo=RECHAZO
+X-Usuario-Id: {{actor}}
+X-Usuario-Rol: JEFATURA
+
+### Subir foto
+POST {{base}}/fotos
+X-Usuario-Id: 3
+X-Usuario-Rol: TECNICO
+Content-Type: multipart/form-data
+
+archivo=@./ejemplo.jpg
+ordenId=1
+tipo=ANTES
+
+### Fotos de una OT
+GET {{base}}/fotos/orden/1
+X-Usuario-Id: {{actor}}
+X-Usuario-Rol: JEFATURA

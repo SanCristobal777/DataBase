@@ -1,0 +1,1 @@
+package cl.acis.ordenes.model; public enum EstadoOrden { CREADA,ASIGNADA,ACEPTADA,EN_EJECUCION,CERRADA,VALIDADA,OBSERVADA,CANCELADA }

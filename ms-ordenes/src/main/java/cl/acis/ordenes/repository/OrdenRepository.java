@@ -1,0 +1,2 @@
+package cl.acis.ordenes.repository; import cl.acis.ordenes.model.*; import org.springframework.data.jpa.repository.*; import java.time.*; import java.util.*;
+public interface OrdenRepository extends JpaRepository<OrdenTrabajo,Long>{Optional<OrdenTrabajo> findTopByOrderByIdDesc();List<OrdenTrabajo> findByEstado(EstadoOrden e);List<OrdenTrabajo> findByTecnicoId(Long id);List<OrdenTrabajo> findByClienteId(Long id);long countByTecnicoIdAndFechaProgramadaBetween(Long id,LocalDateTime a,LocalDateTime b);}

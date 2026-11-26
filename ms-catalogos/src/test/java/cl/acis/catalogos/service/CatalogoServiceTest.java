@@ -1,0 +1,8 @@
+package cl.acis.catalogos.service;
+import cl.acis.catalogos.dto.*; import cl.acis.catalogos.exception.*; import cl.acis.catalogos.model.*; import cl.acis.catalogos.repository.*; import org.junit.jupiter.api.*; import org.mockito.*; import static org.junit.jupiter.api.Assertions.*; import static org.mockito.ArgumentMatchers.*; import static org.mockito.Mockito.*;
+class CatalogoServiceTest{@Mock ClienteRepository clientes;@Mock EquipoRepository equipos;@Mock MotivoRepository motivos;CatalogoService service;@BeforeEach void init(){MockitoAnnotations.openMocks(this);service=new CatalogoService(clientes,equipos,motivos,new RutValidator());when(clientes.save(any())).thenAnswer(i->i.getArgument(0));when(equipos.save(any())).thenAnswer(i->i.getArgument(0));when(motivos.save(any())).thenAnswer(i->i.getArgument(0));}
+ @Test void creaClienteConRutValido(){when(clientes.existsByRutIgnoreCase(anyString())).thenReturn(false);ClienteResponse r=service.crearCliente(new ClienteRequest("Clima Sur","76.543.210-3",null,"a@a.cl",null,null,null));assertEquals("76.543.210-3",r.rut());}
+ @Test void rechazaRutInvalido(){assertThrows(ReglaNegocioException.class,()->service.crearCliente(new ClienteRequest("Clima","11.111.111-2",null,null,null,null,null)));}
+ @Test void borradoClienteEsLogico(){Cliente c=new Cliente();when(clientes.findById(1L)).thenReturn(java.util.Optional.of(c));service.borrarCliente(1L);assertFalse(c.isActivo());verify(clientes,never()).delete(any());}
+ @Test void creaEquipo(){EquipoResponse r=service.crearEquipo(new EquipoRequest(1L,"Split","Daikin","X","S1","Oficina",false));assertEquals(1L,r.clienteId());verify(equipos).save(any());}
+}

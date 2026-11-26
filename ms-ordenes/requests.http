@@ -1,0 +1,48 @@
+@base = http://localhost:8082/api/ordenes
+@id = 1
+@actor = 1
+
+### Crear
+POST {{base}}
+X-Usuario-Id: {{actor}}
+X-Usuario-Rol: JEFATURA
+Content-Type: application/json
+{"clienteId":5,"tipoServicio":"Mantención preventiva","prioridad":"ALTA","fechaProgramada":"2026-12-01T10:00:00","descripcion":"Revisar equipo split"}
+
+### Listar
+GET {{base}}
+X-Usuario-Id: {{actor}}
+X-Usuario-Rol: JEFATURA
+
+### Asignar
+POST {{base}}/{{id}}/acciones
+X-Usuario-Id: {{actor}}
+X-Usuario-Rol: JEFATURA
+Content-Type: application/json
+{"accion":"ASIGNAR","tecnicoId":3}
+
+### Aceptar
+POST {{base}}/{{id}}/acciones
+X-Usuario-Id: 3
+X-Usuario-Rol: TECNICO
+Content-Type: application/json
+{"accion":"ACEPTAR"}
+
+### Check in
+POST {{base}}/{{id}}/acciones
+X-Usuario-Id: 3
+X-Usuario-Rol: TECNICO
+Content-Type: application/json
+{"accion":"CHECK_IN","lat":-33.45,"lon":-70.66}
+
+### Check out
+POST {{base}}/{{id}}/acciones
+X-Usuario-Id: 3
+X-Usuario-Rol: TECNICO
+Content-Type: application/json
+{"accion":"CHECK_OUT","lat":-33.45,"lon":-70.66,"diagnostico":"Filtro saturado","actividades":"Limpieza y prueba","materiales":"Filtro","cantidadFotosEvidencia":1}
+
+### Eventos
+GET {{base}}/{{id}}/eventos
+X-Usuario-Id: {{actor}}
+X-Usuario-Rol: JEFATURA
