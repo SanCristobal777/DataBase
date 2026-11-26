@@ -31,11 +31,13 @@ public class UsuarioController {
     @GetMapping
     public List<UsuarioResponse> listar(@RequestParam(required = false) Rol rol,
             @RequestParam(required = false) Boolean activo, HttpServletRequest q) {
-        return service.listar(actor.admin(q) == null ? null : rol, activo);
+        actor.admin(q);
+        return service.listar(rol, activo);
     }
 
     @GetMapping("/{id}")
-    public UsuarioResponse obtener(@PathVariable Long id) {
+    public UsuarioResponse obtener(@PathVariable Long id, HttpServletRequest q) {
+        actor.propioOAdmin(q, id);
         return service.obtener(id);
     }
 
@@ -48,7 +50,7 @@ public class UsuarioController {
     @PutMapping("/{id}")
     public UsuarioResponse editar(@PathVariable Long id, @Valid @RequestBody EditarUsuarioRequest r,
             HttpServletRequest q) {
-        actor.admin(q);
+        actor.propioOAdmin(q, id);
         return service.editar(id, r);
     }
 

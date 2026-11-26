@@ -5,4 +5,5 @@ class CatalogoServiceTest{@Mock ClienteRepository clientes;@Mock EquipoRepositor
  @Test void rechazaRutInvalido(){assertThrows(ReglaNegocioException.class,()->service.crearCliente(new ClienteRequest("Clima","11.111.111-2",null,null,null,null,null)));}
  @Test void borradoClienteEsLogico(){Cliente c=new Cliente();when(clientes.findById(1L)).thenReturn(java.util.Optional.of(c));service.borrarCliente(1L);assertFalse(c.isActivo());verify(clientes,never()).delete(any());}
  @Test void creaEquipo(){EquipoResponse r=service.crearEquipo(new EquipoRequest(1L,"Split","Daikin","X","S1","Oficina",false));assertEquals(1L,r.clienteId());verify(equipos).save(any());}
+ @Test void rutValidatorEsComponenteInyectable(){assertNotNull(org.springframework.core.annotation.AnnotationUtils.findAnnotation(RutValidator.class,org.springframework.stereotype.Component.class));}
 }

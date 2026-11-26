@@ -1,1 +1,27 @@
-package cl.acis.catalogos.service; import cl.acis.catalogos.exception.ReglaNegocioException; import org.springframework.stereotype.Component; public class RutValidator { public void validar(String rut){String x=rut.replace(".","").replace("-","").toUpperCase();if(!x.matches("\\d{7,8}[0-9K]"))throw new ReglaNegocioException("El RUT no tiene un formato válido");String cuerpo=x.substring(0,x.length()-1),dv=x.substring(x.length()-1);int suma=0,m=2;for(int i=cuerpo.length()-1;i>=0;i--){suma+=(cuerpo.charAt(i)-'0')*m;m=m==7?2:m+1;}int r=11-(suma%11);String esperado=r==11?"0":r==10?"K":String.valueOf(r);if(!esperado.equals(dv))throw new ReglaNegocioException("El dígito verificador del RUT no es válido");} }
+package cl.acis.catalogos.service;
+
+import cl.acis.catalogos.exception.ReglaNegocioException;
+import org.springframework.stereotype.Component;
+
+@Component
+public class RutValidator {
+    public void validar(String rut) {
+        String x = rut.replace(".", "").replace("-", "").toUpperCase();
+        if (!x.matches("\\d{7,8}[0-9K]")) {
+            throw new ReglaNegocioException("El RUT no tiene un formato válido");
+        }
+        String cuerpo = x.substring(0, x.length() - 1);
+        String dv = x.substring(x.length() - 1);
+        int suma = 0;
+        int m = 2;
+        for (int i = cuerpo.length() - 1; i >= 0; i--) {
+            suma += (cuerpo.charAt(i) - '0') * m;
+            m = m == 7 ? 2 : m + 1;
+        }
+        int r = 11 - (suma % 11);
+        String esperado = r == 11 ? "0" : r == 10 ? "K" : String.valueOf(r);
+        if (!esperado.equals(dv)) {
+            throw new ReglaNegocioException("El dígito verificador del RUT no es válido");
+        }
+    }
+}

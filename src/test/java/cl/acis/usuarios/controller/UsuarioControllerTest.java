@@ -46,4 +46,25 @@ class UsuarioControllerTest {
         mvc.perform(get("/api/usuarios")).andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.status").value(401));
     }
+
+    @Test
+    void editarPerfilAjenoResponde403() throws Exception {
+        when(actor.propioOAdmin(any(), eq(2L)))
+                .thenThrow(new cl.acis.usuarios.exception.ProhibidoException("Solo puedes operar sobre tu propia cuenta"));
+
+        mvc.perform(put("/api/usuarios/2")
+                .header("X-Usuario-Id", "1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"correo\":\"otro@acis.cl\",\"nombre\":\"Otro\"}"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void obtenerUsuarioAjenoResponde403() throws Exception {
+        when(actor.propioOAdmin(any(), eq(2L)))
+                .thenThrow(new cl.acis.usuarios.exception.ProhibidoException("Solo puedes operar sobre tu propia cuenta"));
+
+        mvc.perform(get("/api/usuarios/2").header("X-Usuario-Id", "1"))
+                .andExpect(status().isForbidden());
+    }
 }

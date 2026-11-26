@@ -31,6 +31,15 @@ public class ActorComponent {
         return u;
     }
 
+    public Usuario propioOAdmin(HttpServletRequest req, Long id) {
+        Usuario u = buscar(req);
+        if (!u.isActivo())
+            throw new NoAutorizadoException("El usuario actor está inactivo");
+        if (!u.getId().equals(id) && u.getRol() != Rol.ADMINISTRADOR)
+            throw new ProhibidoException("Solo puedes operar sobre tu propia cuenta");
+        return u;
+    }
+
     private Usuario buscar(HttpServletRequest req) {
         String h = req.getHeader(HEADER);
         if (h == null || h.isBlank())
